@@ -1,0 +1,22 @@
+CompileFlags:
+  Add: ["-std=c++20", "-Wall", "-Wpedantic"]
+
+Index:
+  # This allows "Go to Definition" to work even for files you haven't opened yet
+  Background: Build
+
+Diagnostics:
+  # Useful for catching issues early in an interpreter project
+  UnusedIncludes: Strict
+  MissingIncludes: Strict
+
+Hover:
+  # Shows more detailed type info when you hover over variables
+  ShowAKA: Yes
+
+InlayHints:
+  # These provide "ghost text" in your editor for better readability
+  Designators: Yes
+  Enabled: Yes
+  ParameterNames: Yes
+  TypeNameLimit: 25
