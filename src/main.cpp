@@ -4,12 +4,14 @@
 #include <string>
 #include <string_view>
 
-void run(std::string &content) {
+void run(std::string& content)
+{
   std::cout << content << '\n';
   return;
 }
 
-void run_file(std::string_view file_path) {
+void run_file(std::string_view file_path)
+{
   std::ifstream file(file_path.data());
 
   if (!file.is_open()) {
@@ -25,7 +27,8 @@ void run_file(std::string_view file_path) {
   run(file_content);
 }
 
-void run_prompt() {
+void run_prompt()
+{
   std::cout << "> ";
   std::string line;
 
@@ -36,7 +39,8 @@ void run_prompt() {
   }
 }
 
-int main(int argc, char **argv) {
+int main(int argc, char** argv)
+{
   if (argc > 2) {
     std::cerr << "Usage clox [script]" << '\n';
     return 1;

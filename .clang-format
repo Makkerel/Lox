@@ -1,0 +1,42 @@
+---
+Language: Cpp
+BasedOnStyle: Chromium
+Standard: c++20
+
+# --- Core Layout ---
+ColumnLimit: 100
+IndentWidth: 2
+UseTab: Never
+
+# --- Pointers & References ---
+PointerAlignment: Left
+DerivePointerAlignment: false
+
+# --- The Switch Statement ---
+# 1. Puts the case and the return on the same line: `case PLUS: return "PLUS";`
+AllowShortCaseLabelsOnASingleLine: true
+
+# 2. Aligns the `return` statements
+# across multiple single-line cases so they form a perfect vertical table.
+AlignConsecutiveShortCaseStatements:
+  Enabled: true
+  AcrossEmptyLines: false
+  AcrossComments: false
+  AlignCaseColons: false
+
+# --- General Table-Like Alignment ---
+# Aligns the `=` signs and variable names across multiple lines
+AlignConsecutiveAssignments:
+  Enabled: true
+  AcrossEmptyLines: false
+  AcrossComments: false
+
+# --- Braces & Control Flow ---
+BreakBeforeBraces: Linux
+IndentCaseLabels: true
+AllowShortFunctionsOnASingleLine: None
+AllowShortEnumsOnASingleLine: false
+
+# --- Cleanliness ---
+SortIncludes: CaseSensitive
+...

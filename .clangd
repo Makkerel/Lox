@@ -6,7 +6,6 @@ Index:
   Background: Build
 
 Diagnostics:
-  # Useful for catching issues early in an interpreter project
   UnusedIncludes: Strict
   MissingIncludes: Strict
 

@@ -1,0 +1,74 @@
+{
+  "version": 10,
+  "configurePresets": [
+    {
+      "name": "ninja-multi",
+      "displayName": "Clang + Ninja Multi-Config",
+      "description": "Configure once for all configurations (Debug, Release, etc.)",
+      "generator": "Ninja Multi-Config",
+      "binaryDir": "${sourceDir}/build",
+      "cacheVariables": {
+        "CMAKE_CXX_COMPILER": "clang++",
+        "CMAKE_EXPORT_COMPILE_COMMANDS": {
+          "type": "BOOL",
+          "value": "ON"
+        }
+      }
+    }
+  ],
+  "buildPresets": [
+    {
+      "name": "debug",
+      "displayName": "Build Debug",
+      "configurePreset": "ninja-multi",
+      "configuration": "Debug"
+    },
+    {
+      "name": "release",
+      "displayName": "Build Release",
+      "configurePreset": "ninja-multi",
+      "configuration": "Release"
+    }
+  ],
+  "testPresets": [
+    {
+      "name": "debug",
+      "displayName": "Run Debug Tests",
+      "configurePreset": "ninja-multi",
+      "configuration": "Debug",
+      "output": {
+        "outputOnFailure": true
+      }
+    },
+    {
+      "name": "release",
+      "displayName": "Run Release Tests",
+      "configurePreset": "ninja-multi",
+      "configuration": "Release",
+      "output": {
+        "outputOnFailure": true
+      }
+    }
+  ],
+  "workflowPresets": [
+    {
+      "name": "run-tests",
+      "displayName": "Configure, Build Debug, and Test",
+      "$comment": "Unified multi-config pipeline: configures once, builds debug, and runs ctest.",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "ninja-multi"
+        },
+        {
+          "type": "build",
+          "name": "debug"
+        },
+        {
+          "type": "test",
+          "name": "debug"
+        }
+      ]
+    }
+  ]
+}
