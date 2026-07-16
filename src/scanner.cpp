@@ -1,18 +1,19 @@
 #include "scanner.h"
 #include <cctype>
 #include <string>
+#include <utility>
 #include <vector>
 #include "lox.h"
 #include "token.h"
 
-void Scanner::scan_tokens()
+std::vector<Token> Scanner::scan_tokens()
 {
   while (current < source.length()) {
     start = current;
     scan_token();
   }
   tokens.emplace_back(TokenType::T_EOF, "", "", line);
-  return;
+  return std::move(tokens);
 }
 
 bool Scanner::match(char match)
@@ -58,7 +59,7 @@ void Scanner::string_literal()
     return;
   }
   current++;
-  add_token(TokenType::STRING, source.substr(start + 1, current - start - 2));
+  add_token(TokenType::STRING, std::string(source.substr(start + 1, current - start - 2)));
 }
 
 void Scanner::number_literal()
@@ -73,7 +74,7 @@ void Scanner::number_literal()
     }
   }
 
-  add_token(TokenType::NUMBER, source.substr(start, current - start));
+  add_token(TokenType::NUMBER, std::string(source.substr(start, current - start)));
 }
 
 void Scanner::identifier()
@@ -85,9 +86,9 @@ void Scanner::identifier()
   while (isalpha_numeric(peek())) {
     current++;
   }
-  std::string text = source.substr(start, current - start);
-  auto keyword     = keywords.find(text);
-  TokenType type   = TokenType::IDENTIFIER;
+  std::string text(source.substr(start, current - start));
+  auto keyword   = keywords.find(text);
+  TokenType type = TokenType::IDENTIFIER;
   if (keyword != keywords.end()) {
     type = keyword->second;
   }
@@ -141,12 +142,12 @@ void Scanner::scan_token()
 
 void Scanner::add_token(TokenType token)
 {
-  std::string text = source.substr(start, current - start);
+  std::string text(source.substr(start, current - start));
   tokens.emplace_back(token, text, "", line);
 }
 
 void Scanner::add_token(TokenType token, const std::string& literal)
 {
-  std::string text = source.substr(start, current - start);
+  std::string text(source.substr(start, current - start));
   tokens.emplace_back(token, text, literal, line);
 }

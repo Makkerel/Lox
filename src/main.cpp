@@ -3,11 +3,17 @@
 #include <iostream>
 #include <string>
 #include <string_view>
+#include <vector>
+#include "scanner.h"
+#include "token.h"
 
-void run(std::string& content)
+void run(std::string_view content)
 {
-  std::cout << content << '\n';
-  return;
+  std::vector<Token> tokens = Scanner(content).scan_tokens();
+
+  for (auto& t : tokens) {
+    std::cout << t.to_string() << '\n';
+  }
 }
 
 void run_file(std::string_view file_path)

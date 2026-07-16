@@ -2,14 +2,14 @@
 #define SCANNER
 
 #include <string>
+#include <string_view>
 #include <unordered_map>
-#include <utility>
 #include <vector>
 #include "token.h"
 
 class Scanner
 {
-  std::string source;
+  std::string_view source;
   std::vector<Token> tokens;
   inline static const std::unordered_map<std::string, TokenType> keywords = {
       {"and", TokenType::AND},     {"class", TokenType::CLASS}, {"else", TokenType::ELSE},
@@ -32,8 +32,8 @@ class Scanner
   void add_token(TokenType token, const std::string& literal);
 
  public:
-  void scan_tokens();
-  Scanner(std::string&& input) : source(std::move(input))
+  std::vector<Token> scan_tokens();
+  Scanner(std::string_view input) : source(input)
   {
   }
 };
